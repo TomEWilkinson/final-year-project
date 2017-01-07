@@ -1,18 +1,13 @@
 {{> navbar}}
 <div class="container">
-	{{#if scanned}}
-	<h4>Last scanning action:</h4>
-	<h4>{{scanned}}</h4>
-	{{/if}}
+<h4>till</h4>
 	<script src="/socket.io/socket.io.js"></script>
 
-	<ul id="scans"></ul>
-
-	<script> 
+	<!-- <script> 
 	 	var socket = io();
 	    socket.on('scans', function (msg) {
 	       $('#scans').append($('<li>').text(msg));
 	    });
-	</script>
+	</script> -->
 </div>
 	   

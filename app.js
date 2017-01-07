@@ -8,6 +8,7 @@ var bodyParser = require('body-parser');
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var scanner = require('./routes/scanner');
+var till = require('./routes/till');
 var scannerAdmin = require('./routes/scanneradmin');
 var hbs = require('hbs');
 var fs = require('fs');
@@ -47,6 +48,7 @@ app.use('/', routes);
 app.use('/users', users);
 app.use('/scanner', scanner);
 app.use('/scanneradmin', scannerAdmin);
+app.use('/till', scanner);
 
 
 
