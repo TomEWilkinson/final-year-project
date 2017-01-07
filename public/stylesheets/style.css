@@ -1,0 +1,16 @@
+body {
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif; }
+
+a {
+  color: #00B7FF; }
+
+#scans {
+  list-style-type: none;
+  margin: 0;
+  padding: 0; }
+  #scans li {
+    padding: 5px 10px; }
+  #scans li:nth-child(odd) {
+    background: #eee; }
+
+/*# sourceMappingURL=style.css.map */

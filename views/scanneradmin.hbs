@@ -1,0 +1,25 @@
+{{> navbar}}
+<div class="container">
+	<h4>Scanner Admin</h4>
+	<h4>Current Scanner Connected {{ scannerNum }}</h4>
+
+	<form action="/scanneradmin" method="post">
+	  <div class="form-group">
+	    <label for="exampleInputEmail1">Event Name</label>
+	    <input name="eventName" type="text" class="form-control" id="exampleInputEmail1" placeholder="Event name">
+	  </div>
+	  <div class="form-group">
+	    <label for="exampleInputEmail1">Scanner Location</label>
+	    <input name="scannerLocation" type="text" class="form-control" id="exampleInputEmail1" placeholder="Scanner Location">
+	  </div>
+	  <div class="form-group">
+	    <label for="exampleInputEmail1">Scanner location lattiude</label>
+	    <input name="scannerLat" type="text" class="form-control" id="exampleInputEmail1" placeholder="Scanner lattiude">
+	  </div>
+	   <div class="form-group">
+	    <label for="exampleInputEmail1">Scanner location longtitude</label>
+	    <input name="scannerLon" type="text" class="form-control" id="exampleInputEmail1" placeholder="Scanner longtitude">
+	  </div>
+	  <button type="submit" class="btn btn-default">Submit</button>
+	</form>
+</div>
