@@ -48,7 +48,7 @@ app.use('/', routes);
 app.use('/users', users);
 app.use('/scanner', scanner);
 app.use('/scanneradmin', scannerAdmin);
-app.use('/till', scanner);
+app.use('/till', till);
 
 
 

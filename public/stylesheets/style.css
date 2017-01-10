@@ -13,4 +13,22 @@ a {
   #scans li:nth-child(odd) {
     background: #eee; }
 
+.panel {
+  display: inline-block;
+  margin-left: 15px;
+  min-width: 300px; }
+
+.product-container {
+  text-align: center; }
+
+.headerRow div {
+  display: inline-block;
+  margin-left: 5px;
+  width: 50px; }
+
+.itemRow div {
+  display: inline-block;
+  margin-left: 5px;
+  width: 50px; }
+
 /*# sourceMappingURL=style.css.map */

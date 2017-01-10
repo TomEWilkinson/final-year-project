@@ -1,0 +1,64 @@
+{{> navbar}}
+<div class="container">
+
+
+	<form action="/till" method="post">
+	  <div class="form-group">
+	    <label>Event Name</label>
+	    <select onchange="this.form.submit()" name="eventName" class="form-control">
+	    	<option>Please Select</option>
+		  	{{#each eventList}}
+			<option>{{event_name}}</option>
+			{{/each}}
+		</select>
+	  </div>
+	</form>
+	<div class="product-container">
+	   {{#each products}}
+		<div class="panel panel-default simpleCart_shelfItem">
+		  <div class="panel-heading">{{#if img}}<img width="300" height="200" src="{{img}}"></div>{{else}}<img class="img-responsive" src="http://placehold.it/300x200"></div>{{/if}}
+		  <div class="panel-body">
+				<p class="item_name">{{name}}</p>
+				<span class="item_price">£{{price}}</span>
+				<p class="item_id">{{product_ID}}</p>
+			    <a class="item_add" href="javascript:;"> Add to Cart </a>
+		  </div>
+		</div>
+		{{/each}}
+	</div>
+<div class="modal fade"  id="myModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Current cart Total: <div id="total" class="simpleCart_total"></div></h4>
+      </div>
+      <div class="modal-body">
+        <div class="simpleCart_items"></div>
+      </div>
+      <div class="modal-footer">
+        <button id="checkout" type="submit" class="btn btn-primary">Checkout</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+	<script type="text/javascript">
+$( "#checkout" ).click(function() {
+    var basketTotal = $( "#total" ).text();
+    basketTotal = parseFloat(basketTotal.replace("£",""));
+    $.ajax({
+	  type: "POST",
+	  url: '/till/checkout',
+	  data: {
+	        total: basketTotal
+	   },
+	   success: function(data) {
+	   }
+	});
+
+});
+
+	</script>
+</div>
+	   
