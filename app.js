@@ -10,6 +10,7 @@ var users = require('./routes/users');
 var scanner = require('./routes/scanner');
 var till = require('./routes/till');
 var scannerAdmin = require('./routes/scanneradmin');
+var scannerMap = require('./routes/scannermap');
 var hbs = require('hbs');
 var fs = require('fs');
 
@@ -18,7 +19,16 @@ var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 
-//hbs.registerPartial('partial', fs.readFileSync(__dirname + '/views/partial.hbs', 'utf8'));
+hbs.registerHelper("log", function(something) {
+  console.log(something);
+  return ''+something;
+});
+
+hbs.registerHelper("json", function(something) {
+  return JSON.stringify(something);
+});
+
+
 hbs.registerPartials(__dirname + '/views/partials');
 
 // view engine setup
@@ -49,6 +59,7 @@ app.use('/users', users);
 app.use('/scanner', scanner);
 app.use('/scanneradmin', scannerAdmin);
 app.use('/till', till);
+app.use('/scannermap', scannerMap);
 
 
 

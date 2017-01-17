@@ -23,7 +23,6 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/', function(req, res, next) {
-	console.log(req.body)
 	var event = new events.Event();
 	event.GetAll(function(err,data){
 		if (err) {
@@ -37,7 +36,8 @@ router.post('/', function(req, res, next) {
 
 router.post('/checkout', function(req, res, next) {
 
-   var user = new users.User();
+   var user = new users.User(card_num);
+   console.log(user);
 
    user.Checkout(function(err,data){
 		if (err) {

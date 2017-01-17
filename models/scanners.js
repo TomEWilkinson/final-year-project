@@ -2,7 +2,7 @@ var mysql      = require('mysql');
 
 
 
-scanner = function(scanner_id, scanner_lat, scanner_lon, event, location) {
+Scanner = function(scanner_id, scanner_lat, scanner_lon, event, location) {
 	this.scannerId  = scanner_id;
 	this.scannerLat = scanner_lat;
 	this.scannerLon = scanner_lon;
@@ -21,7 +21,7 @@ var connection = mysql.createConnection({
 
 
 
-scanner.prototype.save = function(callback){
+Scanner.prototype.save = function(callback){
 	var msg = "entry sucessful :)";
 	var post = {
 		scanner_id:  this.scannerId, 
@@ -38,7 +38,32 @@ scanner.prototype.save = function(callback){
 	
 }
 
+Scanner.prototype.GetAll = function(callback){
+ 	connection.query('SELECT * FROM rfid_project.scanners',function(err, rows, fields, result){
+	   if (err) {
+            callback(err,null);
+        }
+        else {
+            callback(null,rows);
+        }
+	});
+}
+
+
+Scanner.prototype.GetAllFromEvent = function(callback, event_name){
+	var event = [event_name]
+ 	connection.query('SELECT * FROM rfid_project.scanners where event = ?', event, function(err, rows, fields, result){
+	   if (err) {
+            callback(err,null);
+        }
+        else {
+            callback(null,rows);
+        }
+	});
+}
 
 
 
-module.exports.scanner = scanner;
+
+
+module.exports.Scanner = Scanner;

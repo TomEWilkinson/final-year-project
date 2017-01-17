@@ -1,0 +1,71 @@
+{{> navbar}}
+<style>
+      #map {
+        height: 400px;
+        width: 100%;
+       }
+    </style>
+<div class="container">
+	<h4>Scanner Locations</h4>
+	<form action="/scannermap" method="post">
+	  <div class="form-group">
+	    <label>Event Name</label>
+	    <select onchange="this.form.submit()" name="eventName" class="form-control">
+	    	<option>Please Select</option>
+		  	{{#each eventList}}
+			<option>{{event_name}}</option>
+			{{/each}}
+		</select>
+	  </div>
+	</form>
+	 <div id="map"></div>
+</div>
+
+<script type="text/javascript">
+$( document ).ready(function() {
+	var data = {{{json scannerList}}};
+	initMap(data);
+	
+});
+
+function initMap(data)
+{ 
+	console.log(data);
+	var infowindow = new google.maps.InfoWindow(); 
+	var event = {lat: 53.5410744, lng: -2.2652355};
+	var map = new google.maps.Map(document.getElementById('map'), {
+		zoom: 15,
+		center: event
+	});
+	if(typeof data != "undefined")
+	{
+		data.forEach( function (arrayItem)
+		{	
+			console.log(arrayItem);
+			var latLng =  new google.maps.LatLng(arrayItem.scanner_lat, arrayItem.scanner_lon);
+
+	      var contentString = contentString + '</div></div>';
+
+
+	      marker = new google.maps.Marker({           
+	      	position: latLng,
+	      	map: map,
+	      	contentString: contentString
+	      });
+
+	      var infowindow = new google.maps.InfoWindow({});
+
+	      marker.addListener('click', function() {
+	      	infowindow.setContent(this.contentString);
+	      	infowindow.open(map, this);
+	      	map.setCenter(this.getPosition());
+	      });
+	  });
+	}
+
+}
+
+</script>
+ <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBooUXgTNPv4_lugyThXOQiIpLDPlI_uVU&callback=initMap">
+    </script>
