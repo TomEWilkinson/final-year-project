@@ -1,5 +1,6 @@
 var express = require('express');
 var RecordedScan = require('../models/recordedScan');
+var users = require('../models/users');
 var router = express.Router();
 var Phidget = require('phidgetapi').RFID;
 
@@ -40,6 +41,22 @@ router.get('/', function(req, res, next) {
 			var recordedScan = new RecordedScan.RecordedScan(RFID.tag2.tag, RFID.phidget.data.serial);
 			recordedScan.save();
 			res.io.emit("scans", msg);
+
+			var user = new users.User(null, null, null, RFID.tag2.tag, null);
+			user.HasCardAssigned(function(err,data){
+				if (err) {
+					console.log("ERROR : ",err);            
+				} else {            
+					if (data)
+					{
+						console.log("Card already has user assigned :)")
+					} else {
+						res.io.emit("cardAssignment", user.cardNum);
+					}
+
+				}     
+			});
+
 		}
 
 		//turn off the LED if no tag is present
@@ -51,11 +68,26 @@ router.get('/', function(req, res, next) {
 
 	res.render('scanner', { scanned: msg });
 }); 
+router.post('/', function(req, res, next) {
+	req.body.eventName
+	var user = new users.User(null, req.body.name, req.body.email, req.body.cardNum, null);
+	user.UserExists(function(err,data){
+		if (err) {
+			console.log("ERROR : ",err);            
+		} else {            
+			if (data)
+			{
+				console.log("User exists");
+				user.save();
+			} else {
+				console.log("User does not exist");
+				res.io.emit("userError");
+			}
 
-function saveScan(cardId, readerId){
+		}     
+	});
 
-		
-	}
+});
 
 
 module.exports = router;

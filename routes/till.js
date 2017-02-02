@@ -37,7 +37,6 @@ router.post('/', function(req, res, next) {
 router.post('/checkout', function(req, res, next) {
 
    var user = new users.User(card_num);
-   console.log(user);
 
    user.Checkout(function(err,data){
 		if (err) {
